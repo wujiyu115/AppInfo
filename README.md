@@ -1,0 +1,4 @@
+AppInfo
+=======
+
+apk,ipa info
