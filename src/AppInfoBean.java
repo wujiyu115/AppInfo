@@ -2,6 +2,10 @@ public class AppInfoBean {
 	private String packageName;
 	private String versionStr;
 	private String versionCode;
+	private String xmlInfo;
+	
+	private String versionStrLabel;
+	private String versionCodeLabel;
 
 	public String getPackageName() {
 		return packageName;
@@ -30,6 +34,30 @@ public class AppInfoBean {
 	@Override
 	public String toString() {
 		return  "packageName: "+packageName +" ,versionStr:"+versionStr+" ,versionCode"+versionCode  ;
+	}
+
+	public String getXmlInfo() {
+		return xmlInfo;
+	}
+
+	public void setXmlInfo(String xmlInfo) {
+		this.xmlInfo = xmlInfo;
+	}
+
+	public String getVersionStrLabel() {
+		return versionStrLabel;
+	}
+
+	public void setVersionStrLabel(String versionStrLabel) {
+		this.versionStrLabel = versionStrLabel;
+	}
+
+	public String getVersionCodeLabel() {
+		return versionCodeLabel;
+	}
+
+	public void setVersionCodeLabel(String versionCodeLabel) {
+		this.versionCodeLabel = versionCodeLabel;
 	}
 
 }

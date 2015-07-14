@@ -16,7 +16,8 @@ import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 
 public class XMLRSyntaxTextArea extends RSyntaxTextArea implements
                 DropTargetListener {
-        public XMLRSyntaxTextArea(int rows, int cols) {
+        private IDropInterface dropInterface;
+		public XMLRSyntaxTextArea(int rows, int cols) {
                 super(rows, cols);
                 this.setCodeFoldingEnabled(true);
                 new DropTarget(this, DnDConstants.ACTION_COPY_OR_MOVE, this);
@@ -50,11 +51,13 @@ public class XMLRSyntaxTextArea extends RSyntaxTextArea implements
                                         String xml = FileUtil
                                                         .getOSDefaultXML(filePath);
                                         if (xml != null) {
-                                                String plistInfo = FileUtil
-                                                                .getFileData(filePath,
+                                                AppInfoBean appInfo = FileUtil
+                                                                .getAppInfoBean(filePath,
                                                                                 null,
                                                                                 true);
-                                                this.setText(plistInfo, xml);
+                                                this.setText(appInfo.getXmlInfo(), xml);
+                                                if(dropInterface!=null)
+                                                	dropInterface.drop(appInfo);
                                         }
                                         break;
                                 }
@@ -74,5 +77,8 @@ public class XMLRSyntaxTextArea extends RSyntaxTextArea implements
         public void setText(String t, String findFile) {
                 this.setSyntaxEditingStyle(FileUtil.getSynatx(findFile));
                 super.setText(t);
+        }
+        public void setDropCallBack(IDropInterface dropInterface){
+        	this.dropInterface=dropInterface;
         }
 }
