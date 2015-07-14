@@ -1,11 +1,15 @@
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.util.Enumeration;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.plaf.FontUIResource;
 
 import org.fife.ui.rtextarea.RTextScrollPane;
 
@@ -39,7 +43,19 @@ public class AppMainFrame extends JFrame {
 	static int WIN_WIDTH = 560;
 	static int WIN_HEIGHT = 680;
 
+	public static void initGlobalFontSetting(Font fnt) {
+		FontUIResource fontRes = new FontUIResource(fnt);
+		for (Enumeration keys = UIManager.getDefaults().keys(); keys
+				.hasMoreElements();) {
+			Object key = keys.nextElement();
+			Object value = UIManager.get(key);
+			if (value instanceof FontUIResource)
+				UIManager.put(key, fontRes);
+		}
+	}
+
 	public AppMainFrame() {
+		initGlobalFontSetting(new Font("微软雅黑",Font.PLAIN,12));
 		JPanel mainPanel = new JPanel(new VerticalFlowLayout());
 		mainPanel.setPreferredSize(new Dimension(WIN_WIDTH, WIN_HEIGHT));
 
@@ -49,8 +65,9 @@ public class AppMainFrame extends JFrame {
 
 		JPanel packagePanel = new JPanel(new VerticalFlowLayout(
 				VerticalFlowLayout.TOP));
-		packagePanel.setPreferredSize(new Dimension(WIN_WIDTH, 120));
-		packagePanel.setBorder(BorderFactory.createTitledBorder("拖动apk或者ipa到文本区域"));
+		packagePanel.setPreferredSize(new Dimension(WIN_WIDTH, 150));
+		packagePanel.setBorder(BorderFactory
+				.createTitledBorder("拖动apk或者ipa到文本区域"));
 
 		JPanel namePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		nameLabel = new JLabel("软件名称");
